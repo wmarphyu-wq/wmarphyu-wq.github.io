@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiri & Wint | Lifestyle Vlogger</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Background Video */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: -1;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff0080, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px #ff0080); }
+      to { filter: drop-shadow(0 0 15px #ff8c00); }
+    }
+
+    nav ul {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: #ff7b00;
+      transform: scale(1.1);
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 2s ease;
+    }
+
+    .hero h1 {
+      font-size: 70px;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg,#ff0080,#ff8c00,#ffd000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 22px;
+      max-width: 700px;
+      line-height: 1.8;
+      color: #ddd;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(45deg,#ff0080,#ff8c00);
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.4s;
+      box-shadow: 0 0 20px rgba(255,128,0,0.5);
+    }
+
+    .btn:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 0 30px rgba(255,0,128,0.7);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Gallery */
+    .gallery-section {
+      padding: 80px 40px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 45px;
+      margin-bottom: 50px;
+      color: #fff;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.4s;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .card:hover img {
+      transform: scale(1.12);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(255,0,128,0.4);
+    }
+
+    .card-content {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    }
+
+    .card-content h3 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .card-content p {
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    /* Reels */
+    .reels {
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .reel-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .reel {
+      width: 300px;
+      height: 500px;
+      border-radius: 25px;
+      overflow: hidden;
+      position: relative;
+      transition: 0.4s;
+      box-shadow: 0 0 25px rgba(255,255,255,0.15);
+    }
+
+    .reel video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .reel:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: rgba(0,0,0,0.6);
+      margin-top: 50px;
+    }
+
+    footer p {
+      color: #bbb;
+    }
+
+    /* Floating Hearts Style */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      color: #ff4d6d;
+      font-size: 20px;
+      animation: floatUp 6s linear forwards, glow 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 9999;
+      filter: drop-shadow(0 0 8px #ff4d6d);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        filter: drop-shadow(0 0 5px #ff4d6d);
+      }
+      50% {
+        filter: drop-shadow(0 0 20px #ff4d6d);
+      }
+    }
+
+    /* Spark particle style */
+    .spark {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: sparkle 1s linear forwards;
+      box-shadow: 0 0 10px white;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-30px) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media(max-width:768px){
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      nav {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop class="video-bg">
+    <source src="bg.mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <audio id="bg-music" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <nav>
+    <div class="logo">Thiri & Wint</div>
+
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reels">Reels</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Lifestyle • Fashion • Travel</h1>
+    <p>
+      Welcome to Thiri & Wint's dreamy lifestyle world ✨
+      Explore love moments, aesthetic travel vibes, daily inspiration,
+      and beautiful memories through experiences from LGBT life, Gym Life and so on...
+    </p>
+
+    <button class="btn" onclick="showMessage()">Follow The Love</button>
+  </section>
+
+  <section class="gallery-section" id="gallery">
+    <h2 class="section-title">Featured Moments</h2>
+
+    <div class="gallery">
+
+      <div class="card">
+        <img src="pic1.jpg">
+        <div class="card-content">
+          <h3>Cool Ma Ma</h3>
+          <p>She is strong and healthy💪</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="pic2.jpg">
+        <div class="card-content">
+          <h3>Soft Little Princess</h3>
+          <p>She is a thinker🤔</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="pic3.jpg">
+        <div class="card-content">
+          <h3>Daily Life</h3>
+          <p>They enjoy what they eat🍣</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="pic7.jpg">
+        <div class="card-content">
+          <h3>Love Life</h3>
+          <p>Capturing beautiful moments 💕</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="reels" id="reels">
+    <h2 class="section-title">Mini Reels</h2>
+
+    <div class="reel-container">
+
+      <div class="reel">
+        <video autoplay muted loop>
+          <source src="video1.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="reel">
+        <video autoplay muted loop>
+          <source src="bg.mp4">
+        </video>
+      </div>
+
+      <div class="reel">
+        <video autoplay muted loop>
+          <source src="video2.mp4">
+        </video>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Thiri & Wint Lifestyle Vlog | Designed with love🥰</p>
+  </footer>
+
+  <script>
+    // Follow button message & triggers background music playback
+    function showMessage() {
+      const audio = document.getElementById("bg-music");
+      if (audio) {
+        audio.play().catch(error => {
+          console.log("Browser blocked initial audio playback:", error);
+        });
+      }
+      alert("✨Welcome to Thiri & Wint's lifestyle world within their hearts!");
+    }
+
+    // HEARTS GENERATOR
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight;
+
+      heart.style.left = x + "px";
+      heart.style.top = y + "px";
+
+      document.body.appendChild(heart);
+
+      // create spark burst with each heart
+      createSparks(x, y);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    // SPARK PARTICLES GENERATOR
+    function createSparks(x, y) {
+      for (let i = 0; i < 6; i++) {
+        const spark = document.createElement("div");
+        spark.className = "spark";
+
+        spark.style.left = x + "px";
+        spark.style.top = y + "px";
+
+        const angle = Math.random() * 360;
+        const distance = Math.random() * 40;
+
+        spark.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+
+        document.body.appendChild(spark);
+
+        setTimeout(() => {
+          spark.remove();
+        }, 1000);
+      }
+    }
+
+    // Start background heart generator
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
